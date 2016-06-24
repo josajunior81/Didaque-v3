@@ -8,8 +8,8 @@ android {
         applicationId "br.com.jojun.didaque"
         minSdkVersion 19
         targetSdkVersion 23
-        versionCode 1
-        versionName "1.0"
+        versionCode 12
+        versionName "3.0.0"
     }
     buildTypes {
         release {

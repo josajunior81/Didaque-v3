@@ -1,8 +1,13 @@
 package br.com.jojun.didaque.adapter;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.widget.RecyclerView;
+import android.transition.Explode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +18,19 @@ import android.widget.Toast;
 import java.util.List;
 
 import br.com.jojun.didaque.R;
-import br.com.jojun.didaque.activity.MainActivity;
+import br.com.jojun.didaque.activity.ApostilaActivity;
 import br.com.jojun.didaque.model.Apostila;
+
+import static android.support.v4.app.ActivityCompat.startActivity;
 
 /**
  * Created by josafasouza on 07/06/16.
  */
-public class ApostilasAdapter extends RecyclerView.Adapter<ApostilasAdapter.ViewHolder> {
+public class ListaApostilasAdapter extends RecyclerView.Adapter<ListaApostilasAdapter.ViewHolder> {
 
     private List<Apostila> mDataset;
     private static Context context;
+    private static Activity activity;
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -38,25 +46,32 @@ public class ApostilasAdapter extends RecyclerView.Adapter<ApostilasAdapter.View
 
             v.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
-                    Toast.makeText(context, "Teste! "+mTextView.getText(), Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(activity, ApostilaActivity.class);
+                    if (Build.VERSION.SDK_INT >= 21) {
+                        startActivity(activity, intent,
+                                ActivityOptions.makeSceneTransitionAnimation(activity).toBundle());
+                    } else {
+                        startActivity(activity, intent, null);
+                    }
                 }
             });
         }
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public ApostilasAdapter(Context context, List<Apostila> myDataset) {
+    public ListaApostilasAdapter(Activity activity, Context context, List<Apostila> myDataset) {
         this.context = context;
         mDataset = myDataset;
+        this.activity = activity;
     }
 
     // Create new views (invoked by the layout manager)
     @Override
-    public ApostilasAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
-                                                   int viewType) {
+    public ListaApostilasAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+                                                               int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_apostilas, parent, false);
+                .inflate(R.layout.layout_lista_apostilas, parent, false);
         // set the view's size, margins, paddings and layout parameters
         ViewHolder vh = new ViewHolder(v);
         return vh;

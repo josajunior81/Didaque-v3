@@ -5,15 +5,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import br.com.jojun.didaque.R;
-import br.com.jojun.didaque.adapter.ListaApostilasAdapter;
-import br.com.jojun.didaque.model.Apostila;
+import br.com.jojun.didaque.adapter.ApostilaAdapter;
 import br.com.jojun.didaque.util.ApostilaUtil;
 
-public class MainActivity extends AppCompatActivity {
+/**
+ * Created by Josafá on 23/06/2016.
+ */
+public class ApostilaActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -21,22 +20,21 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_apostila);
 
-        mRecyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view_apostila);
 
         // use this setting to improve performance if you know that changes
         // in content do not change the layout size of the RecyclerView
         mRecyclerView.setHasFixedSize(true);
 
         // use a linear layout manager
-        mLayoutManager = new GridLayoutManager(this, 2);
+        mLayoutManager = new GridLayoutManager(this, 1);
         mRecyclerView.setLayoutManager(mLayoutManager);
 
         // specify an adapter (see also next example)
 
-        mAdapter = new ListaApostilasAdapter(this, MainActivity.this, ApostilaUtil.getApostilas());
+        mAdapter = new ApostilaAdapter(this, ApostilaUtil.getApostilas());
         mRecyclerView.setAdapter(mAdapter);
-
     }
 }
